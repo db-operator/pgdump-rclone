@@ -19,13 +19,12 @@ fi
 # create login credential file
 (umask 377 && echo *:5432:*:${DB_USER}:${DB_PASSWORD} >> ~/.pgpass)
 
-echo "Start create backup"
+echo "Backing up"
 pg_dump -F c -Z 9 -h ${DB_HOST} -p 5432 -U ${DB_USER} ${DB_NAME} -f ${BACKUP_FILE}
 BACKUP_SIZE=$(du ${BACKUP_FILE} | awk '{print $1}')
-echo "End backup"
 
 ## copy to destination
-echo "Copy to gcs"
+echo "Uploading to a storage"
 rclone copyto "./${BACKUP_FILE}" "storage://${STORAGE_BUCKET}/${DB_NAME}/${BACKUP_FILE}" 
 rclone copyto "./${BACKUP_FILE}" "storage://${STORAGE_BUCKET}/${DB_NAME}/${BACKUP_FILE_LATEST}" 
 
