@@ -16,7 +16,7 @@ $ export PGPORT=<Database port>
 $ export PGUSER=<Admin user>
 $ export PGDATABASE=postgres
 $ export PGPASSWORD=<Admin password>
-$ pg_restore --no-owne:wr --no-privileges -d <Target database>  --role <Target username> -Fc <Backup file path> --clean
+$ pg_restore --no-owner --no-privileges -d <Target database>  --role <Target username> -Fc <Backup file path> --clean
 ```
 
 ## How to use
